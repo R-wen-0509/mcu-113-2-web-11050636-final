@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 
 import { ProductCardComponent } from '../product-card/product-card.component';
 
@@ -12,8 +12,7 @@ import { Product } from '../model/product';
   styleUrl: './product-card-list.component.scss',
 })
 export class ProductCardListComponent {
-  @Input()
-  products!: Product[];
+  readonly products = input<Product[]>([]);
 
   pageIndex = 1;
 }
