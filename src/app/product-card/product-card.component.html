@@ -1,7 +1,6 @@
 <img [src]="photoUrl()" />
 <div class="content">
   <strong [class.hidden]="!isShow">{{ id() }}. {{ productName() }}</strong>
-  <span>{{ createDate() | date: 'yyyy-MM-dd' }}</span>
 </div>
 <div>
   @for (author of authors(); track $index) {
