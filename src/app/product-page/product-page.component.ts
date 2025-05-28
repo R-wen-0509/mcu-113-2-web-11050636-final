@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Subject, combineLatest, startWith, switchMap, tap } from 'rxjs';
 import { ProductCardListComponent } from '../product-card-list/product-card-list.component';
 import { ProductService } from '../services/product.service';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Product } from '../model/product';
 
 @Component({
@@ -11,22 +13,42 @@ import { Product } from '../model/product';
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })
-export class ProductPageComponent implements OnInit {
+export class ProductPageComponent {
   private router = inject(Router);
 
   private productService = inject(ProductService);
 
-  pageIndex = 1;
+  private readonly pageIndex$ = new BehaviorSubject(1);
+  get pageIndex() {
+    return this.pageIndex$.value;
+  }
+  set pageIndex(value: number) {
+    this.pageIndex$.next(value);
+  }
+
+  private readonly refresh$ = new Subject<void>();
 
   pageSize = 5;
 
-  totalCount = 0;
+  private readonly data$ = combineLatest([
+    this.pageIndex$.pipe(tap((value) => console.log('page index', value))),
+    this.refresh$.pipe(
+      startWith(undefined),
+      tap(() => console.log('refresh'))
+    ),
+  ]).pipe(switchMap(() => this.productService.getList(undefined, this.pageIndex, this.pageSize)));
 
-  products: Product[] = [];
+  private readonly data = toSignal(this.data$, { initialValue: { data: [], count: 0 } });
 
-  ngOnInit(): void {
-    this.getProducts();
-  }
+  readonly totalCount = computed(() => {
+    const { count } = this.data();
+    return count;
+  });
+
+  readonly products = computed(() => {
+    const { data } = this.data();
+    return data;
+  });
 
   onEdit(product: Product): void {
     this.router.navigate(['product', 'form', product.id]);
@@ -34,17 +56,5 @@ export class ProductPageComponent implements OnInit {
 
   onView(product: Product): void {
     this.router.navigate(['product', 'view', product.id]);
-  }
-
-  onPageIndexChange(pageIndex: number): void {
-    this.pageIndex = pageIndex;
-    this.getProducts();
-  }
-
-  private getProducts(): void {
-    this.productService.getList(undefined, this.pageIndex, this.pageSize).subscribe(({ data, count }) => {
-      this.products = data;
-      this.totalCount = count;
-    });
   }
 }
