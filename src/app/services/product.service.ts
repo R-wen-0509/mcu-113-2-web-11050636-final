@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../model/product';
 import { Observable, delay, filter, map, mergeMap, of, tap, toArray } from 'rxjs';
+import { Product } from '../model/product';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { Observable, delay, filter, map, mergeMap, of, tap, toArray } from 'rxjs
 export class ProductService {
   private _data: Product[] = [
     new Product({
-      id: 1,
+      id: '1',
       name: '書籍 A',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -18,7 +18,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 2,
+      id: '2',
       name: '書籍 B',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -28,7 +28,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 3,
+      id: '3',
       name: '書籍 C',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -38,7 +38,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 4,
+      id: '4',
       name: '書籍 D',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -48,7 +48,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 5,
+      id: '5',
       name: '書籍 E',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -58,7 +58,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 6,
+      id: '6',
       name: '書籍 F',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -68,7 +68,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 7,
+      id: '7',
       name: '書籍 G',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -78,7 +78,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 8,
+      id: '8',
       name: '書籍 H',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -88,7 +88,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 9,
+      id: '9',
       name: '書籍 I',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -98,7 +98,7 @@ export class ProductService {
       price: 10000,
     }),
     new Product({
-      id: 10,
+      id: '10',
       name: '書籍 J',
       authors: ['作者甲', '作者乙', '作者丙'],
       company: '博碩文化',
@@ -108,6 +108,13 @@ export class ProductService {
       price: 10000,
     }),
   ];
+
+  getById(productId: string): Observable<Product> {
+    return of(this._data).pipe(
+      mergeMap((data) => data),
+      filter(({ id }) => id === productId)
+    );
+  }
 
   getList(name: string | undefined, index: number, size: number): Observable<{ data: Product[]; count: number }> {
     return of(this._data).pipe(
@@ -120,13 +127,6 @@ export class ProductService {
         return { data: data.slice(startIndex, endIndex), count: data.length };
       }),
       delay(500)
-    );
-  }
-
-  getById(productId: number): Observable<Product> {
-    return of(this._data).pipe(
-      mergeMap((data) => data),
-      filter(({ id }) => id === productId)
     );
   }
 }
