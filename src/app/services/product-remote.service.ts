@@ -18,11 +18,23 @@ export class ProductRemoteService extends ProductService {
   }
 
   override getList(name: string | undefined, index: number, size: number): Observable<{ data: Product[]; count: number }> {
-    let query = { _page: index, _per_page: size } as { name?: string; _page: number; _per_page: number };
+    let query = { _page: index, _limit: size } as { name?: string; _page: number; _limit: number };
     if (name) query = { ...query, name };
     const params = new HttpParams({ fromObject: query });
+
     return this.httpClient
-      .get<{ data: Product[]; items: number }>(this.url, { params })
-      .pipe(map(({ data, items: count }) => ({ data, count })));
+      .get<Product[]>(this.url, {
+        params,
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          const count = Number(response.headers.get('x-total-count') ?? '0');
+          return {
+            data: response.body ?? [],
+            count,
+          };
+        })
+      );
   }
 }
