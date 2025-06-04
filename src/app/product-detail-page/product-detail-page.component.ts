@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, OnInit, inject, input, numberAttribute } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { Product } from '../model/product';
@@ -10,21 +10,15 @@ import { Product } from '../model/product';
   templateUrl: './product-detail-page.component.html',
   styleUrl: './product-detail-page.component.scss',
 })
-export class ProductDetailPageComponent implements OnInit {
-  id = input.required<number, string | number>({ transform: numberAttribute });
-
-  product!: Product;
+export class ProductDetailPageComponent {
+  readonly product = input.required<Product>();
 
   readonly router = inject(Router);
 
   private productService = inject(ProductService);
 
-  ngOnInit(): void {
-    this.productService.getById(this.id()).subscribe((product) => (this.product = product));
-  }
-
   onEdit(): void {
-    this.router.navigate(['product', 'form', this.product.id]);
+    this.router.navigate(['product', 'form', this.product().id]);
   }
 
   onBack(): void {
