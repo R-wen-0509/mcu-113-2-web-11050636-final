@@ -10,7 +10,7 @@ import { Product } from '../model/product';
 
 @Component({
   selector: 'app-product-page',
-  imports: [ReactiveFormsModule, PaginationComponent, ProductCardListComponent],
+  imports: [PaginationComponent, ProductCardListComponent],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })
