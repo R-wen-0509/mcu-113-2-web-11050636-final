@@ -1,10 +1,10 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { ProductRemoteService } from './services/product-remote.service';
+import { provideHttpClient } from '@angular/common/http';
 import { ProductService } from './services/product.service';
+import { ProductRemoteService } from './services/product-remote.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
