@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, delay, filter, map, mergeMap, of, tap, toArray } from 'rxjs';
+import { delay, filter, map, mergeMap, Observable, of, toArray } from 'rxjs';
 import { Product } from '../model/product';
 
 @Injectable({
@@ -9,93 +9,83 @@ export class ProductService {
   private _data: Product[] = [
     new Product({
       id: '1',
-      name: '書籍 A',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'A 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '2',
-      name: '書籍 B',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'B 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '3',
-      name: '書籍 C',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'C 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '4',
-      name: '書籍 D',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'D 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '5',
-      name: '書籍 E',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'E 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '6',
-      name: '書籍 F',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'F 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '7',
-      name: '書籍 G',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'G 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '8',
-      name: '書籍 H',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'H 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '9',
-      name: '書籍 I',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'I 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
     new Product({
       id: '10',
-      name: '書籍 J',
-      authors: ['作者甲', '作者乙', '作者丙'],
+      name: 'J 產品',
+      authors: ['作者A', '作者B', '作者C'],
       company: '博碩文化',
-      isShow: true,
       photoUrl: 'https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img',
-      price: 10000,
+      price: 1580,
     }),
   ];
 
@@ -106,10 +96,11 @@ export class ProductService {
     );
   }
 
-  getList(name: string | undefined, index: number, size: number): Observable<{ data: Product[]; count: number }> {
+  getList(name: string | undefined, index: number, size: number, isShow?: boolean): Observable<{ data: Product[]; count: number }> {
     return of(this._data).pipe(
       mergeMap((data) => data),
       filter((item) => (name ? item.name === name : true)),
+      filter((item) => (isShow !== undefined ? item.isShow === isShow : true)),
       toArray(),
       map((data) => {
         const startIndex = (index - 1) * size;

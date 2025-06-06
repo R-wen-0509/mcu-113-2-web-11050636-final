@@ -37,11 +37,11 @@ export class ProductPageComponent {
   readonly pageSize = signal(5);
 
   private readonly data = rxResource({
-    request: () => ({ name: this.condition(), pageIndex: this.pageIndex(), pageSize: this.pageSize() }),
+    request: () => ({ name: this.condition(), pageIndex: this.pageIndex(), pageSize: this.pageSize(), isShow: true }),
     defaultValue: { data: [], count: 0 },
     loader: ({ request }) => {
-      const { name, pageIndex, pageSize } = request;
-      return this.productService.getList(name, pageIndex, pageSize);
+      const { name, pageIndex, pageSize, isShow } = request;
+      return this.productService.getList(name, pageIndex, pageSize, isShow);
     },
   });
 
