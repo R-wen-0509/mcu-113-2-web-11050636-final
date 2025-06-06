@@ -4,10 +4,11 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 
 import { PaginationComponent } from '../pagination/pagination.component';
 import { Product } from '../model/product';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-product-card-list',
-  imports: [PaginationComponent, ProductCardComponent],
+  imports: [PaginationComponent, ProductCardComponent, NgIf],
   templateUrl: './product-card-list.component.html',
   styleUrl: './product-card-list.component.scss',
 })

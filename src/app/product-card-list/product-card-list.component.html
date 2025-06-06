@@ -1,15 +1,16 @@
 @for (product of products(); track $index) {
-<app-product-card
-  [id]="product.id"
-  [productName]="product.name"
-  [authors]="product.authors"
-  [company]="product.company"
-  [isShow]="product.isShow"
-  [photoUrl]="product.photoUrl"
-  [price]="product.price"
-  (edit)="edit.emit(product)"
-  (view)="view.emit(product)"
-></app-product-card>
+<ng-container *ngIf="product.isShow">
+  <app-product-card
+    [id]="product.id"
+    [productName]="product.name"
+    [authors]="product.authors"
+    [company]="product.company"
+    [photoUrl]="product.photoUrl"
+    [price]="product.price"
+    [isShow]="product.isShow"
+    (view)="view.emit(product)"
+  ></app-product-card>
+</ng-container>
 } @empty {
 <div class="data-empty">無產品資料</div>
 }
