@@ -1,7 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, model } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '../services/product.service';
 import { Product } from '../model/product';
 
 @Component({
@@ -15,11 +14,7 @@ export class ProductDetailPageComponent {
 
   readonly router = inject(Router);
 
-  private productService = inject(ProductService);
-
-  onEdit(): void {
-    this.router.navigate(['product', 'form', this.product().id]);
-  }
+  readonly discount = model.required<boolean>();
 
   onBack(): void {
     this.router.navigate(['products']);
