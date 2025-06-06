@@ -17,6 +17,4 @@ export class Product {
   isShow!: boolean;
 
   photoUrl!: string;
-
-  createDate!: Date;
 }
