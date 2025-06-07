@@ -2,6 +2,7 @@ import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { ProductCardListComponent } from '../product-card-list/product-card-list.component';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +37,8 @@ export class ProductPageComponent {
 
   readonly pageSize = signal(5);
 
+  private shoppingCartService = inject(ShoppingCartService);
+
   private readonly data = rxResource({
     request: () => ({ name: this.condition(), pageIndex: this.pageIndex(), pageSize: this.pageSize(), isShow: true }),
     defaultValue: { data: [], count: 0 },
@@ -62,5 +65,9 @@ export class ProductPageComponent {
   searchProducts(): void {
     this.condition.set(this.searchControl.value);
     this.pageIndex.set(1);
+  }
+
+  addToCart(product: Product): void {
+    this.shoppingCartService.addProduct(product);
   }
 }

@@ -21,4 +21,6 @@ export class ProductCardListComponent {
   readonly view = output<Product>();
 
   pageIndex = 1;
+
+  readonly addToCart = output<Product>();
 }
