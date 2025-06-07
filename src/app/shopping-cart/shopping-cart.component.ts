@@ -6,6 +6,7 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 import { Product } from '../model/product';
 import { filter, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ShoppingItem } from '../model/shopping-item';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -46,6 +47,8 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     this.setOrderDetail();
     this.setupTotalPriceCalculation();
+
+    this.details.valueChanges.subscribe((value) => (this.shoppingCartService.data = value as ShoppingItem[]));
   }
 
   setOrderDetail() {
