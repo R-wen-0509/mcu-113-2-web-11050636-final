@@ -1,9 +1,9 @@
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Component, HostBinding, booleanAttribute, input, model, numberAttribute, output } from '@angular/core';
 
 @Component({
   selector: 'app-product-card',
-  imports: [DatePipe, CurrencyPipe],
+  imports: [CurrencyPipe],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
