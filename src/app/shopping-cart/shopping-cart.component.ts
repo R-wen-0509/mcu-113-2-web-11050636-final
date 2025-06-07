@@ -1,15 +1,15 @@
-import { CurrencyPipe, JsonPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderForm } from '../interface/order-form';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { Product } from '../model/product';
-import { filter, map } from 'rxjs';
+import { filter, map, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-shopping-cart',
-  imports: [JsonPipe, CurrencyPipe, ReactiveFormsModule],
+  imports: [CurrencyPipe, ReactiveFormsModule],
   templateUrl: './shopping-cart.component.html',
   styleUrl: './shopping-cart.component.scss',
 })
@@ -41,8 +41,11 @@ export class ShoppingCartComponent implements OnInit {
     return this.form.get('details') as FormArray<FormGroup<OrderForm>>;
   }
 
+  totalPrice = 0;
+
   ngOnInit(): void {
     this.setOrderDetail();
+    this.setupTotalPriceCalculation();
   }
 
   setOrderDetail() {
@@ -65,6 +68,19 @@ export class ShoppingCartComponent implements OnInit {
 
       this.details.push(control);
     }
+  }
+
+  setupTotalPriceCalculation(): void {
+    this.details.valueChanges.pipe(startWith(this.details.value), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.calculateTotalPrice();
+    });
+  }
+
+  calculateTotalPrice(): void {
+    this.totalPrice = this.details.controls.reduce((sum, control) => {
+      const price = control.get('price')?.value;
+      return sum + (price !== null && price !== undefined ? price : 0);
+    }, 0);
   }
 
   onSave(): void {
