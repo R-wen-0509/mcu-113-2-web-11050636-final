@@ -110,12 +110,6 @@ export class ShoppingCartComponent implements OnInit {
       this.shoppingCartService.removeItem(itemToRemove.id);
       this.details.removeAt(index);
     }
-
-    this.details.controls.forEach((control, idx) => {
-      if (control instanceof FormGroup && control.get('id')) {
-        control.get('id')?.setValue(idx + 1);
-      }
-    });
   }
 
   onSave(): void {

@@ -36,7 +36,7 @@
       @for (control of details.controls; track $index) {
       <ng-container [formGroupName]="$index">
         <div class="item">
-          <div class="id">{{ control.value.id }}</div>
+          <div class="id">{{ $index+1 }}</div>
           <div class="name">{{ control.value.product?.name }}</div>
           <div class="count">
             <input type="number" formControlName="count" />
