@@ -4,9 +4,9 @@
       "id": "1",
       "name": "A 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
@@ -18,9 +18,9 @@
       "id": "2",
       "name": "B 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
@@ -32,23 +32,23 @@
       "id": "3",
       "name": "C 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
       "price": 1580,
-      "isShow": true,
+      "isShow": false,
       "discount": false
     },
     {
       "id": "4",
       "name": "D 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
@@ -60,9 +60,9 @@
       "id": "5",
       "name": "E 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
@@ -74,9 +74,9 @@
       "id": "6",
       "name": "F 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
@@ -88,9 +88,9 @@
       "id": "7",
       "name": "G 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
@@ -102,9 +102,9 @@
       "id": "8",
       "name": "H 產品",
       "authors": [
-        "作者A",
-        "作者B",
-        "作者C"
+        "作者 A",
+        "作者 B",
+        "作者 C"
       ],
       "company": "博碩文化",
       "photoUrl": "https://api.fnkr.net/testimg/200x200/DDDDDD/999999/?text=img",
