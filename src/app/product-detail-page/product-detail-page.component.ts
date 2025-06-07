@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, inject, input, model } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { Product } from '../model/product';
@@ -14,8 +14,6 @@ export class ProductDetailPageComponent {
   readonly product = input.required<Product>();
 
   readonly router = inject(Router);
-
-  readonly discount = model.required<boolean>();
 
   readonly shoppingCartService = inject(ShoppingCartService);
 
