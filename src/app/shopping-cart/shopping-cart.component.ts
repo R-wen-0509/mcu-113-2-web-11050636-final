@@ -71,14 +71,20 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   setupTotalPriceCalculation(): void {
-    this.details.valueChanges.pipe(startWith(this.details.value), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.calculateTotalPrice();
+    this.details.valueChanges.pipe(startWith(this.details.value), takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+      this.calculateTotalPrice;
     });
   }
 
-  calculateTotalPrice(): void {
-    this.totalPrice = this.details.controls.reduce((sum, control) => {
-      const price = control.get('price')?.value;
+  calculateTotalPrice(
+    value: {
+      id: number;
+      product: Product;
+      count: number;
+      price: number;
+    }[]
+  ): void {
+    this.totalPrice = value.reduce((sum, { price }) => {
       return sum + (price !== null && price !== undefined ? price : 0);
     }, 0);
   }
