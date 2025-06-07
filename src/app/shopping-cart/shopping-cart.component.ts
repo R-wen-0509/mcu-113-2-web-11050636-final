@@ -6,7 +6,6 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 import { Product } from '../model/product';
 import { filter, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ShoppingItem } from '../model/shopping-item';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order.service';
 import { Order } from '../model/order';
@@ -64,8 +63,6 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     this.setOrderDetail();
     this.setupTotalPriceCalculation();
-
-    this.details.valueChanges.subscribe((value) => (this.shoppingCartService.data = value as ShoppingItem[]));
   }
 
   setOrderDetail() {
@@ -93,9 +90,6 @@ export class ShoppingCartComponent implements OnInit {
   setupTotalPriceCalculation(): void {
     this.details.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
       this.totalPrice = value.reduce((sum, { price }) => {
-        return sum + (price ?? 0);
-      }, 0);
-      this.totalPrice = this.details.getRawValue().reduce((sum, { price }) => {
         return sum + (price ?? 0);
       }, 0);
     });
