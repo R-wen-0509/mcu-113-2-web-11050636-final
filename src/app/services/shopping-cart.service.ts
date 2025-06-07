@@ -6,6 +6,7 @@ import { ShoppingItem } from '../model/shopping-item';
   providedIn: 'root',
 })
 export class ShoppingCartService {
+  [x: string]: any;
   data: ShoppingItem[] = [];
 
   addProduct(product: Product): void {

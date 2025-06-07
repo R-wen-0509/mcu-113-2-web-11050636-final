@@ -7,6 +7,10 @@ import { Product } from '../model/product';
 import { filter, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ShoppingItem } from '../model/shopping-item';
+import { Router } from '@angular/router';
+import { OrderService } from '../services/order.service';
+import { Order } from '../model/order';
+import { OrderDetail } from '../model/order-detail';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -15,9 +19,13 @@ import { ShoppingItem } from '../model/shopping-item';
   styleUrl: './shopping-cart.component.scss',
 })
 export class ShoppingCartComponent implements OnInit {
+  private readonly router = inject(Router);
+
   readonly shoppingCartService = inject(ShoppingCartService);
 
   private readonly destroyRef = inject(DestroyRef);
+
+  readonly orderService = inject(OrderService);
 
   form = new FormGroup({
     name: new FormControl<string | null>(null, { validators: [Validators.required] }),
@@ -43,6 +51,15 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   totalPrice = 0;
+
+  get formData(): Order {
+    return new Order({
+      name: this.name.value!,
+      address: this.address.value!,
+      phone: this.phone.value!,
+      details: this.details.value.map((item) => new OrderDetail(item)),
+    });
+  }
 
   ngOnInit(): void {
     this.setOrderDetail();
@@ -103,5 +120,9 @@ export class ShoppingCartComponent implements OnInit {
 
   onSave(): void {
     console.log('Save');
+
+    this.orderService.add(this.formData).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }
