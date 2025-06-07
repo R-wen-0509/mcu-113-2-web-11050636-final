@@ -89,6 +89,14 @@ export class ShoppingCartComponent implements OnInit {
     }, 0);
   }
 
+  onRemoveItem(index: number): void {
+    const itemToRemove = this.details.at(index).getRawValue();
+    if (itemToRemove.id) {
+      this.shoppingCartService.removeItem(itemToRemove.id);
+      this.details.removeAt(index);
+    }
+  }
+
   onSave(): void {
     console.log('Save');
   }
