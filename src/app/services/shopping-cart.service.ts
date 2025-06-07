@@ -6,7 +6,6 @@ import { ShoppingItem } from '../model/shopping-item';
   providedIn: 'root',
 })
 export class ShoppingCartService {
-  [x: string]: any;
   data: ShoppingItem[] = [];
 
   addProduct(product: Product): void {
@@ -22,5 +21,9 @@ export class ShoppingCartService {
 
   removeItem(productId: number): void {
     this.data = this.data.filter((item) => item.id !== productId);
+  }
+
+  clear(): void {
+    this.data = [];
   }
 }

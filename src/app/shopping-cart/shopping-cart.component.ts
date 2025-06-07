@@ -122,6 +122,7 @@ export class ShoppingCartComponent implements OnInit {
     console.log('Save');
 
     this.orderService.add(this.formData).subscribe(() => {
+      this.shoppingCartService.clear();
       this.router.navigate(['/']);
     });
   }
