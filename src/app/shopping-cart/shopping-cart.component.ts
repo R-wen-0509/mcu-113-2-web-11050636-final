@@ -73,7 +73,7 @@ export class ShoppingCartComponent implements OnInit {
       const control = new FormGroup<OrderForm>({
         id: new FormControl<number>(item.id, { nonNullable: true }),
         product: new FormControl<Product>(item.product, { nonNullable: true }),
-        count: new FormControl<number>(item.count, { nonNullable: true }),
+        count: new FormControl<number>(item.count, { nonNullable: true, validators: [Validators.min(1)] }),
         price: new FormControl<number>(item.product.price * item.count, { nonNullable: true }),
       });
 
