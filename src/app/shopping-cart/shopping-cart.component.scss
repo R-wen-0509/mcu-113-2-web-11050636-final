@@ -117,6 +117,8 @@ div.container {
     border: 1px solid #005cbb;
 
     &:disabled {
+      border: 1px solid #999;
+      color: #999;
       cursor: not-allowed;
     }
   }
