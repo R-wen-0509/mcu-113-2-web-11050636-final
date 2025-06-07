@@ -4,7 +4,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
 import { OrderForm } from '../interface/order-form';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { Product } from '../model/product';
-import { filter, map, startWith } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -71,21 +71,16 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   setupTotalPriceCalculation(): void {
-    this.details.valueChanges.pipe(startWith(this.details.value), takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
-      this.calculateTotalPrice;
+    this.details.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+      this.totalPrice = value.reduce((sum, { price }) => {
+        return sum + (price ?? 0);
+      }, 0);
+      this.totalPrice = this.details.getRawValue().reduce((sum, { price }) => {
+        return sum + (price ?? 0);
+      }, 0);
     });
-  }
-
-  calculateTotalPrice(
-    value: {
-      id: number;
-      product: Product;
-      count: number;
-      price: number;
-    }[]
-  ): void {
-    this.totalPrice = value.reduce((sum, { price }) => {
-      return sum + (price !== null && price !== undefined ? price : 0);
+    this.totalPrice = this.details.getRawValue().reduce((sum, { price }) => {
+      return sum + (price ?? 0);
     }, 0);
   }
 
